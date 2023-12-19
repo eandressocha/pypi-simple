@@ -83,8 +83,7 @@ class DigestChecker(AbstractDigestChecker):
 
     def finalize(self) -> None:
         for alg, d in self.digesters.items():
-            actual = d.hexdigest()
-            if actual != self.expected[alg]:
+            if (actual := d.hexdigest()) != self.expected[alg]:
                 raise DigestMismatchError(
                     algorithm=alg,
                     expected_digest=self.expected[alg],

@@ -77,8 +77,7 @@ class RepositoryPage:
             supported repository version
         """
         soup = BeautifulSoup(html, "html.parser", from_encoding=from_encoding)
-        base_tag = soup.find("base", href=True)
-        if base_tag is not None:
+        if (base_tag := soup.find("base", href=True)) is not None:
             assert isinstance(base_tag, Tag)
             href = base_tag["href"]
             assert isinstance(href, str)
@@ -137,7 +136,6 @@ class Link:
 
     def get_str_attrib(self, attrib: str) -> Optional[str]:
         """:meta private:"""
-        value = self.attrs.get(attrib)
-        if value is not None:
+        if (value := self.attrs.get(attrib)) is not None:
             assert isinstance(value, str)
         return value

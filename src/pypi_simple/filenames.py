@@ -120,8 +120,7 @@ def parse_filename(
     :raises UnparsableFilenameError: if the filename cannot be parsed
     """
     for pkg_type, rgx in GOOD_PACKAGE_RGXN:
-        m = rgx.match(filename)
-        if m:
+        if m := rgx.match(filename):
             return (m.group("project"), m.group("version"), pkg_type)
     if project_hint is not None:
         proj_rgx = re.sub(r"[^A-Za-z0-9]+", "[-_.]+", project_hint)
@@ -139,7 +138,6 @@ def parse_filename(
                 if m:
                     return (project, m.group("version"), pkg_type)
     for pkg_type, rgx in BAD_PACKAGE_RGXN:
-        m = rgx.match(filename)
-        if m:
+        if m := rgx.match(filename):
             return (m.group("project"), m.group("version"), pkg_type)
     raise UnparsableFilenameError(filename)

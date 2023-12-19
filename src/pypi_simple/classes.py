@@ -136,8 +136,7 @@ class DistributionPackage:
         digests = {dgst_name: dgst_value} if dgst_value else {}
         url = urlunparse(urlbits._replace(fragment=""))
         has_sig: Optional[bool]
-        gpg_sig = link.get_str_attrib("data-gpg-sig")
-        if gpg_sig is not None:
+        if (gpg_sig := link.get_str_attrib("data-gpg-sig")) is not None:
             has_sig = gpg_sig.lower() == "true"
         else:
             has_sig = None
