@@ -1,5 +1,5 @@
 from __future__ import annotations
-from dataclasses import dataclass
+from dataclasses import field, dataclass
 import re
 from typing import Optional
 from urllib.parse import urljoin
@@ -86,7 +86,7 @@ class RepositoryPage:
                 base_url = href
             else:
                 base_url = urljoin(base_url, href)
-        meta: dict[str, list[str]] = {}
+        meta: dict[str, list[str]] = field(default_factory=dict)
         for tag in soup.find_all(
             "meta", attrs={"name": re.compile(r"^pypi:"), "content": True}
         ):
